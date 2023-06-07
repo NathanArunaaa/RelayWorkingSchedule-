@@ -2,12 +2,18 @@
 #By: Nathan Aruna 
 import datetime
 import time 
-#import RPi.GPIO as GPIO
-#GPIO.setmode(GPIO.BCM)
+import RPi.GPIO as GPIO
 
+GPIO.setmode(GPIO.BCM)
+
+#system state 
 sysRunning = True
 
-    
+#list of relay GPIO pins to output to (DO NOT TOUCH)
+relayPinOut = [5, 6, 13, 16, 19, 20, 21, 26]
+
+relayDelay = 60
+   
 #loop is needed to update dat/time vars and for time checks
 while sysRunning == True:
   YEAR        = datetime.date.today().year     
@@ -16,91 +22,88 @@ while sysRunning == True:
   HOUR        = datetime.datetime.now().hour   
   MINUTE      = datetime.datetime.now().minute 
   WEEKDAY     = datetime.datetime.today().weekday()
-
-  relay1State = False
-  relay2State = False
-  relay3State = False
-  relay4State = False
+ 
   
-  Relay1GPIO = 17
-  Relay2GPIO = 18
-  Relay3GPIO = 19
-  Relay4GPIO = 20
+  #if relay state is false circuit is open, true circuit is closed
+  relay5_state = False
+  relay6_state = False
+  relay13_state = False
+  relay16_state = False
+  relay19_state = False 
+  relay20_state = False 
+  relay21_state = False 
+  relay26_state = False 
   
   #functions to send singals to relays
   def relayOn():
-    print("relays on")
-    #GPIO.setmode(GPIO.BCM)
-    #GPIO.setup(17, GPIO.OUT)
-    #GPIO.output(17, GPIO.LOW)
+    while True:
+       print("Working Times Started")
+       GPIO.setmode(GPIO.BCM)
 
+       GPIO.setup(5, GPIO.OUT)
+       GPIO.output(5, GPIO.LOW)
+       relay5_state = True
+       print('relay5 is on')
+       time.sleep(relayDelay)
+
+       GPIO.setup(6, GPIO.OUT)
+       GPIO.output(6, GPIO.LOW)
+       relay6_state = True
+       print('relay6 is on')
+       time.sleep(relayDelay)
+
+       GPIO.setup(13, GPIO.OUT)
+       GPIO.output(13, GPIO.LOW)
+       relay13_state = True
+       print('relay13 is on')
+       time.sleep(relayDelay)
+       
+       GPIO.setup(16, GPIO.OUT)
+       GPIO.output(16, GPIO.LOW)
+       relay16_state = True
+       print('relay16 is on')
+       time.sleep(relayDelay)
+
+       GPIO.setup(19, GPIO.OUT)
+       GPIO.output(19, GPIO.LOW)
+       relay19_state = True
+       print('relay19 is on')
+       time.sleep(relayDelay)
+
+       GPIO.setup(20, GPIO.OUT)
+       GPIO.output(20, GPIO.LOW)
+       relay20_state = True
+       print('relay20 is on')
+       time.sleep(relayDelay)
+
+       GPIO.setup(21, GPIO.OUT)
+       GPIO.output(21, GPIO.LOW)
+       relay21_state = True
+       print('relay21 is on')
+       time.sleep(relayDelay)
+
+       GPIO.setup(26, GPIO.OUT)
+       GPIO.output(26, GPIO.LOW)
+       relay26_state = True
+       print('relay26 is on')
+       time.sleep(relayDelay)
+    
   def relayOff():
     print("relays off")
-    #GPIO.output(17, GPIO.HIGH)
-    #GPIO.cleanup() 
+    GPIO.output(relayPinOut, GPIO.HIGH)
+    GPIO.cleanup() 
 
   
   #relay 1
   if (HOUR >= 8) and (HOUR <= 16) and (WEEKDAY != 5) and (WEEKDAY != 6):
-        if (relay1State == False):
-          relay1State = True
+        if sysRunning == True:
           relayOn()
-          print("relay1 on")
+          print("System Running")
         else:
-          relay1State = False
-          relayOff(relay1State)
-          print("relay1 off")
+          relayOff()
+          print("System Not Running")
   else:
         print("Not In Operation Hours")
         
   
-  #relay 2
-  if (HOUR >= 8) and (HOUR <= 16) and (WEEKDAY != 5) and (WEEKDAY != 6):
-        if (relay2State == False):
-          relay2State = True
-          relayOn()
-          print("relay2 on")
-        else:
-          relay2State = False
-          relayOff()
-          print("relay2 off")
-  else:
-        print("Not In Operation Hours")
   
-  
-  #relay 3
-  if (HOUR >= 8) and (HOUR <= 16) and (WEEKDAY != 5) and (WEEKDAY != 6):
-        if (relay3State == False):
-          relay3State = True
-          relayOn()
-          print("relay3 on")
-        else:
-          relay3State = False
-          relayOff()
-          print("relay3 off")
-  else:
-        print("Not In Operation Hours")
-  
-  
-  #relay 4
-  if (HOUR >= 8) and (HOUR <= 16) and (WEEKDAY != 5) and (WEEKDAY != 6):
-        if (relay4State == False):
-          relay4State = True
-          relayOn()
-          print("relay4 on")
-        else:
-          relay4State = False
-          relayOff()
-          print("relay4 off")
-  else:
-         print("Not In Operation Hours")
-
-     
-
-
-
-
-
-
-
-
