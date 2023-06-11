@@ -1,43 +1,53 @@
 #display actions code concept v1 
 #By: Nathan Aruna 
+#Code Explination( When code begins it goes into the main function then runs relay on. The relay does its patern then checks for time if the time is not right then it sends it back to the main loop)
+
+
+#Importing Modules
 import datetime
 import time 
 import RPi.GPIO as GPIO
+from flask import Flask, render_template
+from flask_socketio import SocketIO
 
 GPIO.setmode(GPIO.BCM)
 
-#system state 
-sysRunning = True
 
 #list of relay GPIO pins to output to (DO NOT TOUCH)
 relayPinOut = [5, 6, 13, 16, 19, 20, 21, 26]
 
-relayDelay = 60
-   
-#loop is needed to update dat/time vars and for time checks
-while sysRunning == True:
-  YEAR        = datetime.date.today().year     
-  MONTH       = int(datetime.date.today().month)
-  DATE        = datetime.date.today().day      
-  HOUR        = datetime.datetime.now().hour   
-  MINUTE      = datetime.datetime.now().minute 
-  WEEKDAY     = datetime.datetime.today().weekday()
- 
+#time between next relay turn on
+relayDelay = 2
+
+#system running variable(False = not going to run)
+sysRunning = True
+
+
+#function to send singals to relays(Off)
+def relayOff():
+    print("relays off")
+    relay6_state = False
+    relay6_state = False
+    relay13_state = False
+    relay16_state = False
+    relay19_state = False
+    relay20_state = False
+    relay21_state = False
+    relay26_state = False
+    GPIO.output(relayPinOut, GPIO.HIGH)
+    GPIO.cleanup() 
+
+
+
+#function to send singals to relays(ON)
+def relayOn():
   
-  #if relay state is false circuit is open, true circuit is closed
-  relay5_state = False
-  relay6_state = False
-  relay13_state = False
-  relay16_state = False
-  relay19_state = False 
-  relay20_state = False 
-  relay21_state = False 
-  relay26_state = False 
+  WEEKDAY = datetime.datetime.today().weekday()
+  HOUR = datetime.datetime.now().hour
   
-  #functions to send singals to relays
-  def relayOn():
-    while True:
-       print("Working Times Started")
+  while (HOUR >= 8) and (HOUR <= 15) and (WEEKDAY != 5) and (WEEKDAY != 6):
+          
+       print("Display Cycle Started")
        GPIO.setmode(GPIO.BCM)
 
        GPIO.setup(5, GPIO.OUT)
@@ -63,7 +73,8 @@ while sysRunning == True:
        relay16_state = True
        print('relay16 is on')
        time.sleep(relayDelay)
-
+       
+       HOUR = 20
        GPIO.setup(19, GPIO.OUT)
        GPIO.output(19, GPIO.LOW)
        relay19_state = True
@@ -87,23 +98,31 @@ while sysRunning == True:
        relay26_state = True
        print('relay26 is on')
        time.sleep(relayDelay)
-    
-  def relayOff():
-    print("relays off")
-    GPIO.output(relayPinOut, GPIO.HIGH)
-    GPIO.cleanup() 
-
-  
-  #relay 1
-  if (HOUR >= 8) and (HOUR <= 16) and (WEEKDAY != 5) and (WEEKDAY != 6):
+       
+       relayOff()
+       
+       continue
+       
+       
+#Main Loop
+def main():
+ while sysRunning == True:
+   
+  HOUR = datetime.datetime.now().hour   
+  WEEKDAY = datetime.datetime.today().weekday()
+ 
+  if (HOUR >= 8) and (HOUR <= 15) and (WEEKDAY != 5) and (WEEKDAY != 6):
         if sysRunning == True:
-          relayOn()
           print("System Running")
+          relayOn()
+         
         else:
           relayOff()
           print("System Not Running")
   else:
         print("Not In Operation Hours")
         
-  
-  
+
+
+#Run main function
+main()
