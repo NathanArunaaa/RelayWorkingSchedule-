@@ -26,14 +26,6 @@ sysRunning = True
 #function to send singals to relays(Off)
 def relayOff():
     print("relays off")
-    relay6_state = False
-    relay6_state = False
-    relay13_state = False
-    relay16_state = False
-    relay19_state = False
-    relay20_state = False
-    relay21_state = False
-    relay26_state = False
     GPIO.output(relayPinOut, GPIO.HIGH)
     GPIO.cleanup() 
 
@@ -52,50 +44,42 @@ def relayOn():
 
        GPIO.setup(5, GPIO.OUT)
        GPIO.output(5, GPIO.LOW)
-       relay5_state = True
        print('relay5 is on')
        time.sleep(relayDelay)
 
        GPIO.setup(6, GPIO.OUT)
        GPIO.output(6, GPIO.LOW)
-       relay6_state = True
        print('relay6 is on')
        time.sleep(relayDelay)
 
        GPIO.setup(13, GPIO.OUT)
        GPIO.output(13, GPIO.LOW)
-       relay13_state = True
        print('relay13 is on')
        time.sleep(relayDelay)
        
        GPIO.setup(16, GPIO.OUT)
        GPIO.output(16, GPIO.LOW)
-       relay16_state = True
        print('relay16 is on')
        time.sleep(relayDelay)
        
        HOUR = 20
        GPIO.setup(19, GPIO.OUT)
        GPIO.output(19, GPIO.LOW)
-       relay19_state = True
        print('relay19 is on')
        time.sleep(relayDelay)
 
        GPIO.setup(20, GPIO.OUT)
        GPIO.output(20, GPIO.LOW)
-       relay20_state = True
        print('relay20 is on')
        time.sleep(relayDelay)
 
        GPIO.setup(21, GPIO.OUT)
        GPIO.output(21, GPIO.LOW)
-       relay21_state = True
        print('relay21 is on')
        time.sleep(relayDelay)
 
        GPIO.setup(26, GPIO.OUT)
        GPIO.output(26, GPIO.LOW)
-       relay26_state = True
        print('relay26 is on')
        time.sleep(relayDelay)
        
@@ -122,6 +106,11 @@ def main():
   else:
         print("Not In Operation Hours")
         
+
+#Relay Config
+relaySelection = int(input("Relay To Edit:"))
+
+if re
 
 
 #Run main function
