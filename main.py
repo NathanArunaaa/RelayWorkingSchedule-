@@ -6,10 +6,11 @@
 #Importing Modules
 import datetime
 import time 
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
+import configparser
 
 
-GPIO.setmode(GPIO.BCM)
+#GPIO.setmode(GPIO.BCM)
 
 
 #list of relay GPIO pins to output to (DO NOT TOUCH)
@@ -25,9 +26,7 @@ sysRunning = True
 #function to send singals to relays(Off)
 def relayOff():
     print("relays off")
-    GPIO.output(relayPinOut, GPIO.HIGH)
-    GPIO.cleanup() 
-
+    #GPIO.cleanup() 
 
 
 #function to send singals to relays(ON)
@@ -39,46 +38,45 @@ def relayOn():
   while (HOUR >= 8) and (HOUR <= 15) and (WEEKDAY != 5) and (WEEKDAY != 6):
           
        print("Display Cycle Started")
-       GPIO.setmode(GPIO.BCM)
+       #GPIO.setmode(GPIO.BCM)
 
-       GPIO.setup(5, GPIO.OUT)
-       GPIO.output(5, GPIO.LOW)
+       #GPIO.setup(5, GPIO.OUT)
+       #GPIO.output(5, GPIO.LOW)
        print('relay5 is on')
        time.sleep(relayDelay)
 
-       GPIO.setup(6, GPIO.OUT)
-       GPIO.output(6, GPIO.LOW)
+       #GPIO.setup(6, GPIO.OUT)
+       #GPIO.output(6, GPIO.LOW)
        print('relay6 is on')
        time.sleep(relayDelay)
 
-       GPIO.setup(13, GPIO.OUT)
-       GPIO.output(13, GPIO.LOW)
+       #GPIO.setup(13, GPIO.OUT)
+       #GPIO.output(13, GPIO.LOW)
        print('relay13 is on')
        time.sleep(relayDelay)
        
-       GPIO.setup(16, GPIO.OUT)
-       GPIO.output(16, GPIO.LOW)
+       #GPIO.setup(16, GPIO.OUT)
+       #GPIO.output(16, GPIO.LOW)
        print('relay16 is on')
        time.sleep(relayDelay)
        
-       HOUR = 20
-       GPIO.setup(19, GPIO.OUT)
-       GPIO.output(19, GPIO.LOW)
+       #GPIO.setup(19, GPIO.OUT)
+       #GPIO.output(19, GPIO.LOW)
        print('relay19 is on')
        time.sleep(relayDelay)
 
-       GPIO.setup(20, GPIO.OUT)
-       GPIO.output(20, GPIO.LOW)
+       #GPIO.setup(20, GPIO.OUT)
+       #GPIO.output(20, GPIO.LOW)
        print('relay20 is on')
        time.sleep(relayDelay)
 
-       GPIO.setup(21, GPIO.OUT)
-       GPIO.output(21, GPIO.LOW)
+       #GPIO.setup(21, GPIO.OUT)
+       #GPIO.output(21, GPIO.LOW)
        print('relay21 is on')
        time.sleep(relayDelay)
 
-       GPIO.setup(26, GPIO.OUT)
-       GPIO.output(26, GPIO.LOW)
+       #GPIO.setup(26, GPIO.OUT)
+       #GPIO.output(26, GPIO.LOW)
        print('relay26 is on')
        time.sleep(relayDelay)
        
@@ -107,12 +105,104 @@ def main():
         
 
 #Relay Config
-relaySelection = int(input("Relay To Edit:"))
 
-if relaySelection == 1:
-   print("a")
+def relayConfig():
+ while True:
+    
+  
+  
+  relaySelection = str(input("Relay To Edit:"))
+  relayTimeBegin = str(input("Time To Begin:"))
+  relayTimeEnd = str(input("Time To End:"))
+  
+  config = configparser.ConfigParser()
+
+
+  if relaySelection == "1":
+    config.add_section('Relay1')
+    config.set('Relay1', 'on_time', relayTimeBegin)
+    config.set('Relay1', 'off_time', relayTimeEnd)
+    continue
+    
+  else:
+    print("No Valid Relay Selected")
+    
+    with open('relay_config.ini', 'w') as configfile:
+     config.write(configfile)
+
+
+    
+    
+  
+  if relaySelection == "2":
+    config.add_section('Relay2')
+    config.set('Relay2', 'on_time', relayTimeBegin)
+    config.set('Relay2', 'off_time', relayTimeEnd)
+    continue
+    
+  else:
+    print("No Valid Relay Selected")
+    
+    with open('relay_config.ini', 'w') as configfile:
+     config.write(configfile)
+
+
+  
+  
+  
+  if relaySelection == "3":
+    config.add_section('Relay3')
+    config.set('Relay3', 'on_time', relayTimeBegin)
+    config.set('Relay3', 'off_time', relayTimeEnd)
+    continue
+    
+  else:
+    print("No Valid Relay Selected")
+    
+    with open('relay_config.ini', 'w') as configfile:
+     config.write(configfile)
+
+
+    
+    
+  
+  if relaySelection == "4":
+    config.add_section('Relay4')
+    config.set('Relay4', 'on_time', relayTimeBegin)
+    config.set('Relay4', 'off_time', relayTimeEnd)
+    continue
+    
+  else:
+    print("No Valid Relay Selected")
+    
+    with open('relay_config.ini', 'w') as configfile:
+     config.write(configfile)
+
+
+    
+    
+  
+  if relaySelection == "4":
+    config.add_section('Relay4')
+    config.set('Relay5', 'on_time', relayTimeBegin)
+    config.set('Relay5', 'off_time', relayTimeEnd)
+    continue
+    
+  else:
+   print("No Valid Relay Selected")
+   
+   with open('relay_config.ini', 'w') as configfile:
+    config.write(configfile)
+
+
+   
+
+
+  
 
 
 
+
+relayConfig()
 #Run main function
 main()
