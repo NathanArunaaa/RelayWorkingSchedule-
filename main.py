@@ -109,7 +109,9 @@ def main():
 #Relay Config
 relaySelection = int(input("Relay To Edit:"))
 
-if re
+if relaySelection == 1:
+   print("a")
+
 
 
 #Run main function
