@@ -1,13 +1,7 @@
-#display actions code concept v1 
-#By: Nathan Aruna 
-#Code Explination( When code begins it goes into the main function then runs relay on. The relay does its patern then checks for time if the time is not right then it sends it back to the main loop)
-
-
 #Importing Modules
 import datetime
 import time 
-#import RPi.GPIO as GPIO
-import configparser
+import RPi.GPIO as GPIO
 
 
 #GPIO.setmode(GPIO.BCM)
