@@ -26,7 +26,7 @@ sysRunning = True
 #function to send singals to relays(Off)
 def relayOff():
     print("relays off")
-    #GPIO.cleanup() 
+    GPIO.cleanup() 
 
 
 #function to send singals to relays(ON)
@@ -38,52 +38,49 @@ def relayOn():
   while (HOUR >= 8) and (HOUR <= 15) and (WEEKDAY != 5) and (WEEKDAY != 6):
           
        print("Display Cycle Started")
-       #GPIO.setmode(GPIO.BCM)
+       GPIO.setmode(GPIO.BCM)
 
-       #GPIO.setup(5, GPIO.OUT)
-       #GPIO.output(5, GPIO.LOW)
+       GPIO.setup(5, GPIO.OUT)
+       GPIO.output(5, GPIO.LOW)
        print('relay5 is on')
        time.sleep(relayDelay)
 
-       #GPIO.setup(6, GPIO.OUT)
-       #GPIO.output(6, GPIO.LOW)
+       GPIO.setup(6, GPIO.OUT)
+       GPIO.output(6, GPIO.LOW)
        print('relay6 is on')
        time.sleep(relayDelay)
 
-       #GPIO.setup(13, GPIO.OUT)
-       #GPIO.output(13, GPIO.LOW)
+       GPIO.setup(13, GPIO.OUT)
+       GPIO.output(13, GPIO.LOW)
        print('relay13 is on')
        time.sleep(relayDelay)
        
-       #GPIO.setup(16, GPIO.OUT)
-       #GPIO.output(16, GPIO.LOW)
+       GPIO.setup(16, GPIO.OUT)
+       GPIO.output(16, GPIO.LOW)
        print('relay16 is on')
        time.sleep(relayDelay)
        
-       #GPIO.setup(19, GPIO.OUT)
-       #GPIO.output(19, GPIO.LOW)
+       GPIO.setup(19, GPIO.OUT)
+       GPIO.output(19, GPIO.LOW)
        print('relay19 is on')
        time.sleep(relayDelay)
 
-       #GPIO.setup(20, GPIO.OUT)
-       #GPIO.output(20, GPIO.LOW)
+       GPIO.setup(20, GPIO.OUT)
+       GPIO.output(20, GPIO.LOW)
        print('relay20 is on')
        time.sleep(relayDelay)
 
-       #GPIO.setup(21, GPIO.OUT)
-       #GPIO.output(21, GPIO.LOW)
+       GPIO.setup(21, GPIO.OUT)
+       GPIO.output(21, GPIO.LOW)
        print('relay21 is on')
        time.sleep(relayDelay)
 
-       #GPIO.setup(26, GPIO.OUT)
-       #GPIO.output(26, GPIO.LOW)
+       GPIO.setup(26, GPIO.OUT)
+       GPIO.output(26, GPIO.LOW)
        print('relay26 is on')
        time.sleep(relayDelay)
        
-       relayOff()
-       
-       continue
-       
+              
        
 #Main Loop
 def main():
